@@ -1,0 +1,46 @@
+.list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7f7;
+  padding: 10px;
+
+  .listHeader {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .listTitle {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  .newItem {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  .newItemContent {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  .listContainer {
+    flex: 1;
+  }
+
+  &.write .listItem {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  .listItemContent {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  &.read .listItem {
+    margin-top: 8px;
+    padding: 10px;
+  }
+}
