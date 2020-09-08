@@ -8,3 +8,10 @@ export function getAllLists(): Promise<ListModel[]> {
 export function createList(list: ListModel): Promise<ListModel> {
   return axios.post("/api/lists", list).then(({ data: list }) => list);
 }
+
+export function updateList(
+  id: ListModel["id"],
+  list: ListModel
+): Promise<ListModel> {
+  return axios.put(`/api/list/${id}`, list).then(({ data: list }) => list);
+}

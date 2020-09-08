@@ -12,11 +12,15 @@ import styles from "./list.module.scss";
 
 export type ListMode = "read" | "write";
 
+type ListMethods = {
+  save: (list: ListModel) => void;
+  edit: () => void;
+};
+
 type ListProps = {
-  selectedList: ListModel;
-  saveList: (list: ListModel) => void;
+  data: ListModel;
   mode: ListMode;
-  setMode: (mode: ListMode) => void;
+  methods: ListMethods;
 };
 
 type ListState = {
@@ -24,9 +28,9 @@ type ListState = {
   newItem: string;
 };
 
-export function List({ selectedList, saveList, mode, setMode }: ListProps) {
+export function List({ data, mode, methods: { save, edit } }: ListProps) {
   const [state, setState] = useState<ListState>({
-    list: { ...selectedList },
+    list: { ...data },
     newItem: "",
   });
 
@@ -34,9 +38,9 @@ export function List({ selectedList, saveList, mode, setMode }: ListProps) {
     setState((state) => ({
       ...state,
       newItem: "",
-      list: { ...selectedList },
+      list: { ...data },
     }));
-  }, [selectedList]);
+  }, [data]);
 
   const addItem = (content: string) => {
     if (!content) {
@@ -88,7 +92,7 @@ export function List({ selectedList, saveList, mode, setMode }: ListProps) {
               variant="contained"
               color="primary"
               onClick={() => {
-                saveList(state.list);
+                save(state.list);
               }}
             >
               Save
@@ -98,12 +102,7 @@ export function List({ selectedList, saveList, mode, setMode }: ListProps) {
         {mode === "read" && (
           <>
             <h2 className={styles.listTitle}>{state.list.title}</h2>
-            <Button
-              variant="contained"
-              onClick={() => {
-                setMode("write");
-              }}
-            >
+            <Button variant="contained" onClick={edit}>
               Edit
             </Button>
           </>

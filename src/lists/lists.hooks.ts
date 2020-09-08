@@ -18,9 +18,13 @@ export function useLists() {
   };
 
   const updateList = (id: ListModel["id"], updatedList: ListModel) => {
-    setLists((lists) =>
-      lists.map((list) => (list.id === id ? updatedList : list))
-    );
+    return api.updateList(id, updatedList).then((list) => {
+      setLists((lists) =>
+        lists.map((list) => (list.id === id ? updatedList : list))
+      );
+
+      return list;
+    });
   };
 
   const deleteList = (id: ListModel["id"]) => {

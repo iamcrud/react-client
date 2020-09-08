@@ -7,7 +7,8 @@ import { List, ListMode } from "./list";
 import { NoListFound } from "../no-list-found/no-list-found";
 
 type ListContainerMethods = {
-  saveList: (id: ListModel["id"], list: ListModel) => Promise<ListModel>;
+  createList: (list: ListModel) => Promise<ListModel>;
+  updateList: (id: ListModel["id"], list: ListModel) => Promise<ListModel>;
 };
 
 type ListContainerProps = {
@@ -25,7 +26,10 @@ const newList = () => ({
   items: [],
 });
 
-export function ListContainer({ lists, methods }: ListContainerProps) {
+export function ListContainer({
+  lists,
+  methods: { createList, updateList },
+}: ListContainerProps) {
   const [state, setState] = useState<ListContainerState>({
     mode: "read",
   });
@@ -33,12 +37,20 @@ export function ListContainer({ lists, methods }: ListContainerProps) {
   const { id } = useParams();
   const history = useHistory();
 
-  const saveList = (list: ListModel) => {
-    methods.saveList(id, list).then((list) => {
-      setState({
+  const save = (list: ListModel) => {
+    let promise: Promise<ListModel>;
+
+    if (id === "new") {
+      promise = createList(list);
+    } else {
+      promise = updateList(id, list);
+    }
+
+    promise.then((list) => {
+      setState((state) => ({
         ...state,
         mode: "read",
-      });
+      }));
 
       history.push(`/${list.id}`);
     });
@@ -51,24 +63,20 @@ export function ListContainer({ lists, methods }: ListContainerProps) {
     }));
   };
 
+  const edit = () => {
+    setMode("write");
+  };
+
   useEffect(() => {
     setMode(id === "new" ? "write" : "read");
   }, [id]);
 
-  const selectedList =
-    id === "new" ? newList() : lists.find((list) => list.id === id);
+  const list = id === "new" ? newList() : lists.find((list) => list.id === id);
 
   return (
     <>
-      {!selectedList && <NoListFound />}
-      {selectedList && (
-        <List
-          selectedList={selectedList}
-          saveList={saveList}
-          mode={state.mode}
-          setMode={setMode}
-        />
-      )}
+      {!list && <NoListFound />}
+      {list && <List data={list} mode={state.mode} methods={{ edit, save }} />}
     </>
   );
 }

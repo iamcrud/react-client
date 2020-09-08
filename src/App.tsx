@@ -18,15 +18,6 @@ type AppState = {
 function App() {
   const { lists, createList, updateList, deleteList } = useLists();
 
-  const saveList = (id: ListModel["id"], list: ListModel) => {
-    if (id === "new") {
-      return createList(list);
-    }
-
-    updateList(id, list);
-    return Promise.resolve(list);
-  };
-
   return (
     <div className={styles.app}>
       <AppBar position="sticky">
@@ -40,7 +31,7 @@ function App() {
 
         <Switch>
           <Route path="/:id">
-            <ListContainer lists={lists} methods={{ saveList }} />
+            <ListContainer lists={lists} methods={{ createList, updateList }} />
           </Route>
           <Route path="/">
             <NoListSelected />
