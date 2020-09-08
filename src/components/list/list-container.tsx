@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 
 import * as api from "lists/lists.api";
-import { ListModel } from "lists/lists.model";
+import { ListItemModel, ListModel } from "lists/lists.model";
 import { NoListFound } from "components/no-list-found/no-list-found";
 
 import { Mode } from "./list.model";
@@ -30,7 +30,7 @@ export function ListContainer({
   const { id } = useParams();
   const history = useHistory();
   const [mode, setMode] = useState<Mode>("read");
-  const [list, setList] = useState<ListModel | null>();
+  const [list, setList] = useState<ListModel>(newList());
 
   useEffect(() => {
     if (id === "new") {
@@ -43,6 +43,43 @@ export function ListContainer({
     api.readList(id).then(setList);
   }, [id]);
 
+  const edit = () => {
+    setMode("write");
+  };
+
+  const updateTitle = (title: ListModel["title"]) => {
+    setList((list) => ({
+      ...list,
+      title: title,
+    }));
+  };
+
+  const createItem = (content: ListItemModel["content"]) => {
+    setList((list) => ({
+      ...list,
+      items: [...list.items, { id: uuid(), isNew: true, content: content }],
+    }));
+  };
+
+  const updateItem = (
+    id: ListItemModel["id"],
+    content: ListItemModel["id"]
+  ) => {
+    setList((list) => ({
+      ...list,
+      items: list.items.map((item) =>
+        item.id === id ? { ...item, content: content } : item
+      ),
+    }));
+  };
+
+  const deleteItem = (id: string) => {
+    setList((list) => ({
+      ...list,
+      items: list.items.filter((item) => item.id !== id),
+    }));
+  };
+
   const save = (list: ListModel) => {
     let promise: Promise<ListModel>;
 
@@ -53,19 +90,27 @@ export function ListContainer({
     }
 
     promise.then((list) => {
-      setMode("read");
       history.push(`/${list.id}`);
+      setMode("read");
     });
-  };
-
-  const edit = () => {
-    setMode("write");
   };
 
   return (
     <>
       {!list && <NoListFound />}
-      {list && <List data={list} mode={mode} methods={{ edit, save }} />}
+      {list && (
+        <List
+          data={{ list, mode }}
+          methods={{
+            edit,
+            updateTitle,
+            createItem,
+            updateItem,
+            deleteItem,
+            save,
+          }}
+        />
+      )}
     </>
   );
 }

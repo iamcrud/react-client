@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 
-import { ListModel } from "lists/lists.model";
 import { useLists } from "lists/lists.hook";
 
 import { Menu } from "components/menu/menu";
@@ -10,10 +9,6 @@ import { NoListSelected } from "components/no-list-selected/no-list-selected";
 import { ListContainer } from "components/list/list-container";
 
 import styles from "./App.module.scss";
-
-type AppState = {
-  lists: ListModel[];
-};
 
 function App() {
   const { lists, createList, updateList, deleteList } = useLists();
