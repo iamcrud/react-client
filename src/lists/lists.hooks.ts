@@ -28,7 +28,9 @@ export function useLists() {
   };
 
   const deleteList = (id: ListModel["id"]) => {
-    setLists((lists) => lists.filter((list) => list.id !== id));
+    return api.deleteList(id).then(() => {
+      setLists((lists) => lists.filter((list) => list.id !== id));
+    });
   };
 
   return { lists, createList, updateList, deleteList };
