@@ -1,74 +1,27 @@
 import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import AddIcon from "@material-ui/icons/Add";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { v4 as uuid } from "uuid";
+import { Button, TextField, Paper } from "@material-ui/core";
+import { Add as AddIcon, Delete as DeleteIcon } from "@material-ui/icons";
 
-import { ListItemModel, ListModel } from "lists/lists.model";
-
+import { ListProps } from "./list.model";
 import styles from "./list.module.scss";
 
-export type ListMode = "read" | "write";
-
-type ListMethods = {
-  save: (list: ListModel) => void;
-  edit: () => void;
-};
-
-type ListProps = {
-  data: ListModel;
-  mode: ListMode;
-  methods: ListMethods;
-};
-
-export function List({ data, mode, methods: { save, edit } }: ListProps) {
-  const [list, setList] = useState<ListModel>(data);
+export function List({
+  data: { list, mode },
+  methods: { edit, updateTitle, createItem, updateItem, deleteItem, save },
+}: ListProps) {
   const [newItem, setNewItem] = useState<string>("");
 
   useEffect(() => {
     setNewItem("");
-    setList(data);
-  }, [data]);
+  }, [list.id]);
 
-  const updateTitle = (title: ListModel["title"]) => {
-    setList((list) => ({
-      ...list,
-      title: title,
-    }));
-  };
-
-  const createItem = (content: ListItemModel["content"]) => {
-    if (!content) {
+  const createNewItem = () => {
+    if (!newItem) {
       return;
     }
 
     setNewItem("");
-
-    setList((list) => ({
-      ...list,
-      items: [...list.items, { id: uuid(), isNew: true, content: content }],
-    }));
-  };
-
-  const updateItem = (
-    id: ListItemModel["id"],
-    content: ListItemModel["id"]
-  ) => {
-    setList((list) => ({
-      ...list,
-      items: list.items.map((item) =>
-        item.id === id ? { ...item, content: content } : item
-      ),
-    }));
-  };
-
-  const deleteItem = (id: string) => {
-    setList((list) => ({
-      ...list,
-      items: list.items.filter((item) => item.id !== id),
-    }));
+    createItem(newItem);
   };
 
   return (
@@ -91,6 +44,7 @@ export function List({ data, mode, methods: { save, edit } }: ListProps) {
               color="primary"
               onClick={() => {
                 save(list);
+                setNewItem("");
               }}
             >
               Save
@@ -118,18 +72,14 @@ export function List({ data, mode, methods: { save, edit } }: ListProps) {
               setNewItem(event.target.value);
             }}
             onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                createItem(newItem);
+              if (event.key !== "Enter") {
+                return;
               }
+
+              createNewItem();
             }}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              createItem(newItem);
-            }}
-          >
+          <Button variant="contained" color="primary" onClick={createNewItem}>
             <AddIcon />
           </Button>
         </div>
