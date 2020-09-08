@@ -6,20 +6,11 @@ import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { v4 as uuid } from "uuid";
 
+import { ListModel } from "lists/lists.model";
+
 import styles from "./list.module.scss";
 
 export type ListMode = "read" | "write";
-
-type ListItem = {
-  content: string;
-  id: string;
-};
-
-export type ListModel = {
-  id: string;
-  title: string;
-  items: ListItem[];
-};
 
 type ListProps = {
   selectedList: ListModel;

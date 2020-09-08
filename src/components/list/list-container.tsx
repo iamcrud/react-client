@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 
-import { List, ListModel, ListMode } from "./list";
+import { ListModel } from "lists/lists.model";
+import { List, ListMode } from "./list";
 import { NoListFound } from "../no-list-found/no-list-found";
 
 type ListContainerMethods = {
-  saveList: (list: ListModel) => void;
+  saveList: (id: ListModel["id"], list: ListModel) => Promise<ListModel>;
 };
 
 type ListContainerProps = {
@@ -33,12 +34,14 @@ export function ListContainer({ lists, methods }: ListContainerProps) {
   const history = useHistory();
 
   const saveList = (list: ListModel) => {
-    methods.saveList(list);
-    setState({
-      ...state,
-      mode: "read",
+    methods.saveList(id, list).then((list) => {
+      setState({
+        ...state,
+        mode: "read",
+      });
+
+      history.push(`/${list.id}`);
     });
-    history.push(`/${list.id}`);
   };
 
   const setMode = (mode: ListMode) => {
