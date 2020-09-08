@@ -9,6 +9,10 @@ export function createList(list: ListModel): Promise<ListModel> {
   return axios.post("/api/lists", list).then(({ data: list }) => list);
 }
 
+export function readList(id: ListModel["id"]): Promise<ListModel> {
+  return axios.get(`/api/lists/${id}`).then(({ data: list }) => list);
+}
+
 export function updateList(
   id: ListModel["id"],
   list: ListModel

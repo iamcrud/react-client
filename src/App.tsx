@@ -31,7 +31,7 @@ function App() {
 
         <Switch>
           <Route path="/:id">
-            <ListContainer lists={lists} methods={{ createList, updateList }} />
+            <ListContainer methods={{ createList, updateList }} />
           </Route>
           <Route path="/">
             <NoListSelected />

@@ -7,10 +7,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { v4 as uuid } from "uuid";
 
 import { ListItemModel, ListModel } from "lists/lists.model";
+import { Mode } from "./list.model";
 
 import styles from "./list.module.scss";
-
-export type ListMode = "read" | "write";
 
 type ListMethods = {
   save: (list: ListModel) => void;
@@ -19,7 +18,7 @@ type ListMethods = {
 
 type ListProps = {
   data: ListModel;
-  mode: ListMode;
+  mode: Mode;
   methods: ListMethods;
 };
 
