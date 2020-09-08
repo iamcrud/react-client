@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import axios from "axios";
 import AppBar from "@material-ui/core/AppBar";
 
 import { Menu } from "./components/menu/menu";
@@ -17,6 +18,15 @@ function App() {
   const [state, setState] = useState<AppState>({
     lists: [],
   });
+
+  useEffect(() => {
+    axios.get("/api/lists").then(({ data: lists }) => {
+      setState((state) => ({
+        ...state,
+        lists,
+      }));
+    });
+  }, []);
 
   const removeList = (id: string) => {
     setState({
