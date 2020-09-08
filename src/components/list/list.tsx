@@ -6,7 +6,7 @@ import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { v4 as uuid } from "uuid";
 
-import { ListModel } from "lists/lists.model";
+import { ListItemModel, ListModel } from "lists/lists.model";
 
 import styles from "./list.module.scss";
 
@@ -23,48 +23,52 @@ type ListProps = {
   methods: ListMethods;
 };
 
-type ListState = {
-  list: ListModel;
-  newItem: string;
-};
-
 export function List({ data, mode, methods: { save, edit } }: ListProps) {
-  const [state, setState] = useState<ListState>({
-    list: { ...data },
-    newItem: "",
-  });
+  const [list, setList] = useState<ListModel>(data);
+  const [newItem, setNewItem] = useState<string>("");
 
   useEffect(() => {
-    setState((state) => ({
-      ...state,
-      newItem: "",
-      list: { ...data },
-    }));
+    setNewItem("");
+    setList(data);
   }, [data]);
 
-  const addItem = (content: string) => {
+  const updateTitle = (title: ListModel["title"]) => {
+    setList((list) => ({
+      ...list,
+      title: title,
+    }));
+  };
+
+  const createItem = (content: ListItemModel["content"]) => {
     if (!content) {
       return;
     }
 
-    setState({
-      ...state,
-      newItem: "",
-      list: {
-        ...state.list,
-        items: [...state.list.items, { content: content, id: uuid() }],
-      },
-    });
+    setNewItem("");
+
+    setList((list) => ({
+      ...list,
+      items: [...list.items, { id: uuid(), isNew: true, content: content }],
+    }));
   };
 
-  const removeItem = (id: string) => {
-    setState({
-      ...state,
-      list: {
-        ...state.list,
-        items: state.list.items.filter((item) => item.id !== id),
-      },
-    });
+  const updateItem = (
+    id: ListItemModel["id"],
+    content: ListItemModel["id"]
+  ) => {
+    setList((list) => ({
+      ...list,
+      items: list.items.map((item) =>
+        item.id === id ? { ...item, content: content } : item
+      ),
+    }));
+  };
+
+  const deleteItem = (id: string) => {
+    setList((list) => ({
+      ...list,
+      items: list.items.filter((item) => item.id !== id),
+    }));
   };
 
   return (
@@ -77,22 +81,16 @@ export function List({ data, mode, methods: { save, edit } }: ListProps) {
               className={styles.listTitle}
               variant="outlined"
               size="small"
-              value={state.list.title}
+              value={list.title}
               onChange={(event) => {
-                setState({
-                  ...state,
-                  list: {
-                    ...state.list,
-                    title: event.target.value,
-                  },
-                });
+                updateTitle(event.target.value);
               }}
             />
             <Button
               variant="contained"
               color="primary"
               onClick={() => {
-                save(state.list);
+                save(list);
               }}
             >
               Save
@@ -101,7 +99,7 @@ export function List({ data, mode, methods: { save, edit } }: ListProps) {
         )}
         {mode === "read" && (
           <>
-            <h2 className={styles.listTitle}>{state.list.title}</h2>
+            <h2 className={styles.listTitle}>{list.title}</h2>
             <Button variant="contained" onClick={edit}>
               Edit
             </Button>
@@ -115,13 +113,13 @@ export function List({ data, mode, methods: { save, edit } }: ListProps) {
             label="New item"
             variant="outlined"
             size="small"
-            value={state.newItem}
+            value={newItem}
             onChange={(event) => {
-              setState({ ...state, newItem: event.target.value });
+              setNewItem(event.target.value);
             }}
             onKeyDown={(event) => {
               if (event.key === "Enter") {
-                addItem(state.newItem);
+                createItem(newItem);
               }
             }}
           />
@@ -129,7 +127,7 @@ export function List({ data, mode, methods: { save, edit } }: ListProps) {
             variant="contained"
             color="primary"
             onClick={() => {
-              addItem(state.newItem);
+              createItem(newItem);
             }}
           >
             <AddIcon />
@@ -137,7 +135,7 @@ export function List({ data, mode, methods: { save, edit } }: ListProps) {
         </div>
       )}
       <ul className={styles.listContainer}>
-        {state.list.items.map((item) => (
+        {list.items.map((item) => (
           <li key={item.id}>
             {mode === "read" && (
               <Paper className={styles.listItem}>{item.content}</Paper>
@@ -151,24 +149,14 @@ export function List({ data, mode, methods: { save, edit } }: ListProps) {
                   size="small"
                   value={item.content}
                   onChange={(event) => {
-                    setState({
-                      ...state,
-                      list: {
-                        ...state.list,
-                        items: state.list.items.map((listItem) =>
-                          listItem.id === item.id
-                            ? { ...listItem, content: event.target.value }
-                            : listItem
-                        ),
-                      },
-                    });
+                    updateItem(item.id, event.target.value);
                   }}
                 />
                 <Button
                   variant="contained"
                   color="secondary"
                   onClick={() => {
-                    removeItem(item.id);
+                    deleteItem(item.id);
                   }}
                 >
                   <DeleteIcon />

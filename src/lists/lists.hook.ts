@@ -17,13 +17,13 @@ export function useLists() {
     });
   };
 
-  const updateList = (id: ListModel["id"], updatedList: ListModel) => {
-    return api.updateList(id, updatedList).then((list) => {
+  const updateList = (id: ListModel["id"], modifiedList: ListModel) => {
+    return api.updateList(id, modifiedList).then((updatedList) => {
       setLists((lists) =>
         lists.map((list) => (list.id === id ? updatedList : list))
       );
 
-      return list;
+      return updatedList;
     });
   };
 

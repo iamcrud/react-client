@@ -1,4 +1,4 @@
-export type ListItem = {
+export type ListItemModel = {
   content: string;
   id: string;
 };
@@ -6,5 +6,5 @@ export type ListItem = {
 export type ListModel = {
   id: string;
   title: string;
-  items: ListItem[];
+  items: ListItemModel[];
 };
