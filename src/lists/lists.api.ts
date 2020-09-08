@@ -13,9 +13,9 @@ export function updateList(
   id: ListModel["id"],
   list: ListModel
 ): Promise<ListModel> {
-  return axios.put(`/api/list/${id}`, list).then(({ data: list }) => list);
+  return axios.put(`/api/lists/${id}`, list).then(({ data: list }) => list);
 }
 
 export function deleteList(id: ListModel["id"]): Promise<void> {
-  return axios.delete(`/api/list/${id}`);
+  return axios.delete(`/api/lists/${id}`);
 }
