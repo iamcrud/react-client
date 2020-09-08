@@ -4,11 +4,11 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-import { ListModel } from "../list/list";
+import { ListModel } from "lists/lists.model";
 import styles from "./menu.module.scss";
 
 type MenuMethods = {
-  removeList: (id: string) => void;
+  deleteList: (id: string) => void;
 };
 
 type MenuProps = {
@@ -20,8 +20,8 @@ export function Menu({ lists, methods }: MenuProps) {
   const history = useHistory();
   const { id: paramId } = useParams();
 
-  const removeList = (id: string) => {
-    methods.removeList(id);
+  const deleteList = (id: string) => {
+    methods.deleteList(id);
 
     if (paramId === id) {
       history.push("/");
@@ -49,7 +49,7 @@ export function Menu({ lists, methods }: MenuProps) {
                   variant="contained"
                   color="secondary"
                   onClick={() => {
-                    removeList(list.id);
+                    deleteList(list.id);
                   }}
                 >
                   <DeleteIcon />

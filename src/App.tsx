@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 
-import { Menu } from "./components/menu/menu";
-import { ListModel } from "./components/list/list";
-import { NoListSelected } from "./components/no-list-selected/no-list-selected";
-import { ListContainer } from "./components/list/list-container";
+import { ListModel } from "lists/lists.model";
+import { useLists } from "lists/lists.hooks";
+
+import { Menu } from "components/menu/menu";
+import { NoListSelected } from "components/no-list-selected/no-list-selected";
+import { ListContainer } from "components/list/list-container";
 
 import styles from "./App.module.scss";
 
@@ -14,37 +16,7 @@ type AppState = {
 };
 
 function App() {
-  const [state, setState] = useState<AppState>({
-    lists: [],
-  });
-
-  const removeList = (id: string) => {
-    setState({
-      ...state,
-      lists: state.lists.filter((list) => list.id !== id),
-    });
-  };
-
-  const saveList = (list: ListModel) => {
-    let lists: ListModel[] = [];
-
-    const isNewList = !state.lists.some(
-      (stateList) => stateList.id === list.id
-    );
-
-    if (isNewList) {
-      lists = [...state.lists, list];
-    } else {
-      lists = state.lists.map((stateList) =>
-        stateList.id === list.id ? list : stateList
-      );
-    }
-
-    setState({
-      ...state,
-      lists: lists,
-    });
-  };
+  const { lists, createList, updateList, deleteList } = useLists();
 
   return (
     <div className={styles.app}>
@@ -54,12 +26,12 @@ function App() {
 
       <div className={styles.container}>
         <Route path="/:id?">
-          <Menu lists={state.lists} methods={{ removeList }} />
+          <Menu lists={lists} methods={{ deleteList }} />
         </Route>
 
         <Switch>
           <Route path="/:id">
-            <ListContainer lists={state.lists} methods={{ saveList }} />
+            <ListContainer lists={lists} methods={{ createList, updateList }} />
           </Route>
           <Route path="/">
             <NoListSelected />
