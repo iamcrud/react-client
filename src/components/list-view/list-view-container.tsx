@@ -6,8 +6,8 @@ import * as api from "lists/lists.api";
 import { ListItemModel, ListModel } from "lists/lists.model";
 import { NoListFound } from "components/no-list-found/no-list-found";
 
-import { Mode } from "./list.model";
-import { List } from "./list";
+import { Mode } from "./list-view.model";
+import { ListView } from "./list-view";
 
 type ListContainerMethods = {
   createList: (list: ListModel) => Promise<ListModel>;
@@ -24,11 +24,10 @@ const newList = () => ({
   items: [],
 });
 
-export function ListContainer({
+export function ListViewContainer({
   methods: { createList, updateList },
 }: ListContainerProps) {
-  const { id } = useParams();
-  const history = useHistory();
+  const { id } = useParams<{ id: string }>();
   const [mode, setMode] = useState<Mode>("read");
   const [list, setList] = useState<ListModel>(newList());
 
@@ -90,7 +89,6 @@ export function ListContainer({
     }
 
     promise.then((list) => {
-      history.push(`/${list.id}`);
       setMode("read");
     });
   };
@@ -99,7 +97,7 @@ export function ListContainer({
     <>
       {!list && <NoListFound />}
       {list && (
-        <List
+        <ListView
           data={{ list, mode }}
           methods={{
             edit,

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Button, TextField, Paper } from "@material-ui/core";
 import { Add as AddIcon, Delete as DeleteIcon } from "@material-ui/icons";
 
-import { ListProps } from "./list.model";
-import styles from "./list.module.scss";
+import { ListViewProps } from "./list-view.model";
+import styles from "./list-view.module.scss";
 
-export function List({
+export function ListView({
   data: { list, mode },
   methods: { edit, updateTitle, createItem, updateItem, deleteItem, save },
-}: ListProps) {
+}: ListViewProps) {
   const [newItem, setNewItem] = useState<string>("");
 
   useEffect(() => {

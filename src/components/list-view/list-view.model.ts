@@ -7,7 +7,7 @@ export type ListData = {
   mode: Mode;
 };
 
-export type ListMethods = {
+export type ListViewMethods = {
   edit: () => void;
   updateTitle: (title: ListModel["title"]) => void;
   createItem: (content: ListItemModel["content"]) => void;
@@ -16,7 +16,7 @@ export type ListMethods = {
   save: (list: ListModel) => void;
 };
 
-export type ListProps = {
+export type ListViewProps = {
   data: ListData;
-  methods: ListMethods;
+  methods: ListViewMethods;
 };
