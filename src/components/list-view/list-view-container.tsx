@@ -28,6 +28,7 @@ export function ListViewContainer({
   methods: { createList, updateList },
 }: ListContainerProps) {
   const { id } = useParams<{ id: string }>();
+  const history = useHistory();
   const [mode, setMode] = useState<Mode>("read");
   const [list, setList] = useState<ListModel>(newList());
 
@@ -80,15 +81,17 @@ export function ListViewContainer({
   };
 
   const save = (list: ListModel) => {
-    let promise: Promise<ListModel>;
+    let promise: Promise<ListModel | void>;
 
     if (id === "new") {
-      promise = createList(list);
+      promise = createList(list).then((list) => {
+        history.push(`/lists/${list.id}`);
+      });
     } else {
       promise = updateList(id, list);
     }
 
-    promise.then((list) => {
+    promise.then(() => {
       setMode("read");
     });
   };

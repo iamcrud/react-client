@@ -22,9 +22,6 @@ function App() {
 
       <div className={styles.container}>
         <Menu />
-        {/*  <Route path="/:id?">
-          <Menu lists={lists} methods={{ deleteList }} />
-        </Route> */}
 
         <Switch>
           <Route path="/lists/:id">
