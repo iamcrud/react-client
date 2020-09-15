@@ -28,10 +28,7 @@ export function ListViewContainer({
   methods: { createList, updateList },
 }: ListContainerProps) {
   const { id } = useParams<{ id: string }>();
-<<<<<<< HEAD:src/components/list-view/list-view-container.tsx
   const history = useHistory();
-=======
->>>>>>> d2a815af7ed39a66b433b3d3561c3a4836da1fa9:src/components/list/list-container.tsx
   const [mode, setMode] = useState<Mode>("read");
   const [list, setList] = useState<ListModel>(newList());
 
@@ -94,11 +91,7 @@ export function ListViewContainer({
       promise = updateList(id, list);
     }
 
-<<<<<<< HEAD:src/components/list-view/list-view-container.tsx
     promise.then(() => {
-=======
-    promise.then((list) => {
->>>>>>> d2a815af7ed39a66b433b3d3561c3a4836da1fa9:src/components/list/list-container.tsx
       setMode("read");
     });
   };

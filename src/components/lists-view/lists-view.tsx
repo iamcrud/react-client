@@ -30,11 +30,7 @@ export function ListsView({ lists, methods }: ListsProps) {
 
   return (
     <div className={styles.listsView}>
-<<<<<<< HEAD
       <Link to="/lists/new">
-=======
-      <Link to="/new">
->>>>>>> d2a815af7ed39a66b433b3d3561c3a4836da1fa9
         <Button variant="contained" color="primary">
           New list
         </Button>
