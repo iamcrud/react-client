@@ -5,10 +5,11 @@ import AppBar from "@material-ui/core/AppBar";
 import { useLists } from "lists/lists.hook";
 
 import { Menu } from "components/menu/menu";
-import { NoListSelected } from "components/no-list-selected/no-list-selected";
-import { ListContainer } from "components/list/list-container";
+/* import { NoListSelected } from "components/no-list-selected/no-list-selected"; */
+import { ListViewContainer } from "components/list-view/list-view-container";
 
 import styles from "./App.module.scss";
+import { ListsView } from "components/lists-view/lists-view";
 
 function App() {
   const { lists, createList, updateList, deleteList } = useLists();
@@ -20,16 +21,20 @@ function App() {
       </AppBar>
 
       <div className={styles.container}>
-        <Route path="/:id?">
+        <Menu />
+        {/*  <Route path="/:id?">
           <Menu lists={lists} methods={{ deleteList }} />
-        </Route>
+        </Route> */}
 
         <Switch>
-          <Route path="/:id">
-            <ListContainer methods={{ createList, updateList }} />
+          <Route path="/lists/:id">
+            <ListViewContainer methods={{ createList, updateList }} />
           </Route>
-          <Route path="/">
+          {/* <Route path="/">
             <NoListSelected />
+          </Route> */}
+          <Route path="/lists">
+            <ListsView lists={lists} methods={{ deleteList }} />
           </Route>
         </Switch>
       </div>
