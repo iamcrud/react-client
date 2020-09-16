@@ -30,36 +30,37 @@ export function ListsView({ lists, methods }: ListsProps) {
 
   return (
     <div className={styles.listsView}>
-      <Link to="/lists/new">
-        <Button variant="contained" color="primary">
-          New list
-        </Button>
-      </Link>
-      <div className={styles.lists}>
-        <ul>
-          {lists.map((list) => (
-            <li key={list.id}>
-              <div className={styles.list}>
-                <Link
-                  to={`/lists/${list.id}`}
-                  className={styles.listNameContainer}
-                >
-                  <Paper className={styles.listName}>{list.title}</Paper>
-                </Link>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    deleteList(list.id);
-                  }}
-                >
-                  <DeleteIcon />
-                </Button>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Lists</h2>
+        <Link to="/lists/new">
+          <Button variant="contained" color="primary">
+            New list
+          </Button>
+        </Link>
       </div>
+      <ul className={styles.container}>
+        {lists.map((list) => (
+          <li key={list.id}>
+            <div className={styles.row}>
+              <Link
+                to={`/lists/${list.id}`}
+                className={styles.listNameContainer}
+              >
+                <Paper className={styles.listName}>{list.title}</Paper>
+              </Link>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  deleteList(list.id);
+                }}
+              >
+                <DeleteIcon />
+              </Button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

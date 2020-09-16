@@ -5,31 +5,33 @@
   background-color: #f7f7f7;
   padding: 10px;
 
-  .listHeader {
+  .header {
     display: flex;
     justify-content: flex-end;
+
+    .title {
+      flex: 1;
+      margin-right: 10px;
+    }
   }
 
-  .listTitle {
+  &.write {
+    .newItem {
+      display: flex;
+      margin-top: 10px;
+
+      .content {
+        flex: 1;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .container {
     flex: 1;
-    margin-right: 10px;
   }
 
-  .newItem {
-    display: flex;
-    margin-top: 10px;
-  }
-
-  .newItemContent {
-    flex: 1;
-    margin-right: 10px;
-  }
-
-  .listContainer {
-    flex: 1;
-  }
-
-  &.write .listItem {
+  &.write .row {
     display: flex;
     margin-top: 10px;
   }
@@ -39,7 +41,7 @@
     margin-right: 10px;
   }
 
-  &.read .listItem {
+  &.read .row {
     margin-top: 8px;
     padding: 10px;
   }
