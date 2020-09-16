@@ -26,12 +26,12 @@ export function ListView({
 
   return (
     <div className={`${styles.list} ${styles[mode]}`}>
-      <div className={styles.listHeader}>
+      <div className={styles.header}>
         {mode === "write" && (
           <>
             <TextField
               label="Title"
-              className={styles.listTitle}
+              className={styles.title}
               variant="outlined"
               size="small"
               value={list.title}
@@ -53,7 +53,7 @@ export function ListView({
         )}
         {mode === "read" && (
           <>
-            <h2 className={styles.listTitle}>{list.title}</h2>
+            <h2 className={styles.title}>{list.title}</h2>
             <Button variant="contained" onClick={edit}>
               Edit
             </Button>
@@ -63,7 +63,7 @@ export function ListView({
       {mode === "write" && (
         <div className={styles.newItem}>
           <TextField
-            className={styles.newItemContent}
+            className={styles.content}
             label="New item"
             variant="outlined"
             size="small"
@@ -84,14 +84,14 @@ export function ListView({
           </Button>
         </div>
       )}
-      <ul className={styles.listContainer}>
+      <ul className={styles.container}>
         {list.items.map((item) => (
           <li key={item.id}>
             {mode === "read" && (
-              <Paper className={styles.listItem}>{item.content}</Paper>
+              <Paper className={styles.row}>{item.content}</Paper>
             )}
             {mode === "write" && (
-              <div className={styles.listItem}>
+              <div className={styles.row}>
                 <TextField
                   className={styles.listItemContent}
                   label="Item content"

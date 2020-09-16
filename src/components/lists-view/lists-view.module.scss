@@ -3,16 +3,24 @@
   background-color: #f7f7f7;
   padding: 10px;
 
-  .lists ul {
+  .header {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    justify-content: flex-end;
+
+    .title {
+      flex: 1;
+      margin-right: 10px;
+    }
   }
 
-  .list {
+  .container {
+    flex: 1;
+  }
+
+  .row {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 8px;
   }
 
   .listNameContainer {
