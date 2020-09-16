@@ -12,6 +12,7 @@ import { ListView } from "./list-view";
 type ListContainerMethods = {
   createList: (list: ListModel) => Promise<ListModel>;
   updateList: (id: ListModel["id"], list: ListModel) => Promise<ListModel>;
+  deleteList: (id: ListModel["id"]) => Promise<void>;
 };
 
 type ListContainerProps = {
@@ -25,7 +26,7 @@ const newList = () => ({
 });
 
 export function ListViewContainer({
-  methods: { createList, updateList },
+  methods: { createList, updateList, deleteList },
 }: ListContainerProps) {
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
@@ -43,8 +44,32 @@ export function ListViewContainer({
     api.readList(id).then(setList);
   }, [id]);
 
+  const remove = () => {
+    deleteList(list.id);
+
+    if (id === list.id) {
+      history.push("/lists");
+    }
+  };
+
   const edit = () => {
     setMode("write");
+  };
+
+  const save = (list: ListModel) => {
+    let promise: Promise<ListModel | void>;
+
+    if (id === "new") {
+      promise = createList(list).then((list) => {
+        history.push(`/lists/${list.id}`);
+      });
+    } else {
+      promise = updateList(id, list);
+    }
+
+    promise.then(() => {
+      setMode("read");
+    });
   };
 
   const updateTitle = (title: ListModel["title"]) => {
@@ -80,22 +105,6 @@ export function ListViewContainer({
     }));
   };
 
-  const save = (list: ListModel) => {
-    let promise: Promise<ListModel | void>;
-
-    if (id === "new") {
-      promise = createList(list).then((list) => {
-        history.push(`/lists/${list.id}`);
-      });
-    } else {
-      promise = updateList(id, list);
-    }
-
-    promise.then(() => {
-      setMode("read");
-    });
-  };
-
   return (
     <>
       {!list && <NoListFound />}
@@ -104,11 +113,12 @@ export function ListViewContainer({
           data={{ list, mode }}
           methods={{
             edit,
+            remove,
+            save,
             updateTitle,
             createItem,
             updateItem,
             deleteItem,
-            save,
           }}
         />
       )}
