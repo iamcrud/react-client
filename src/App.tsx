@@ -25,13 +25,15 @@ function App() {
 
         <Switch>
           <Route path="/lists/:id">
-            <ListViewContainer methods={{ createList, updateList }} />
+            <ListViewContainer
+              methods={{ createList, updateList, deleteList }}
+            />
           </Route>
           {/* <Route path="/">
             <NoListSelected />
           </Route> */}
           <Route path="/lists">
-            <ListsView lists={lists} methods={{ deleteList }} />
+            <ListsView lists={lists} />
           </Route>
         </Switch>
       </div>

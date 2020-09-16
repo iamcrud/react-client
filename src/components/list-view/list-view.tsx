@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Button, TextField, Paper } from "@material-ui/core";
-import { Add as AddIcon, Delete as DeleteIcon } from "@material-ui/icons";
+import {
+  Add as AddIcon,
+  Delete as DeleteIcon,
+  Edit as EditIcon,
+} from "@material-ui/icons";
 
+import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import { ListViewProps } from "./list-view.model";
 import styles from "./list-view.module.scss";
 
 export function ListView({
   data: { list, mode },
-  methods: { edit, updateTitle, createItem, updateItem, deleteItem, save },
+  methods: {
+    edit,
+    remove,
+    save,
+    updateTitle,
+    createItem,
+    updateItem,
+    deleteItem,
+  },
 }: ListViewProps) {
   const [newItem, setNewItem] = useState<string>("");
 
@@ -42,6 +55,7 @@ export function ListView({
             <Button
               variant="contained"
               color="primary"
+              startIcon={<PlaylistAddCheckIcon />}
               onClick={() => {
                 save(list);
                 setNewItem("");
@@ -54,7 +68,21 @@ export function ListView({
         {mode === "read" && (
           <>
             <h2 className={styles.title}>{list.title}</h2>
-            <Button variant="contained" onClick={edit}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={remove}
+              className={styles.action}
+              startIcon={<DeleteIcon />}
+            >
+              Delete
+            </Button>
+            <Button
+              variant="contained"
+              onClick={edit}
+              className={styles.action}
+              startIcon={<EditIcon />}
+            >
               Edit
             </Button>
           </>
@@ -79,8 +107,13 @@ export function ListView({
               createNewItem();
             }}
           />
-          <Button variant="contained" color="primary" onClick={createNewItem}>
-            <AddIcon />
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            onClick={createNewItem}
+          >
+            Add
           </Button>
         </div>
       )}
