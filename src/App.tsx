@@ -6,7 +6,7 @@ import { useLists } from "lists/lists.hook";
 
 import { Menu } from "components/menu/menu";
 import { LandingView } from "components/landing-view/landing-view";
-import { ListViewContainer } from "components/list-view/list-view-container";
+import { ListView } from "components/list-view/list.view";
 import { ListsView } from "components/lists-view/lists-view";
 
 import styles from "./App.module.scss";
@@ -25,9 +25,7 @@ function App() {
 
         <Switch>
           <Route path="/lists/:id">
-            <ListViewContainer
-              methods={{ createList, updateList, deleteList }}
-            />
+            <ListView methods={{ createList, updateList, deleteList }} />
           </Route>
           <Route path="/lists">
             <ListsView lists={lists} />

@@ -7,10 +7,10 @@ import {
 } from "@material-ui/icons";
 
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
-import { ListViewProps } from "./list-view.model";
-import styles from "./list-view.module.scss";
+import { ListProps } from "./list.types";
+import styles from "./list.module.scss";
 
-export function ListView({
+export function List({
   data: { list, mode },
   methods: {
     edit,
@@ -21,7 +21,7 @@ export function ListView({
     updateItem,
     deleteItem,
   },
-}: ListViewProps) {
+}: ListProps) {
   const [newItem, setNewItem] = useState<string>("");
 
   useEffect(() => {
