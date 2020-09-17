@@ -16,7 +16,7 @@ export function Menu() {
             <ListItemIcon>
               <ListIcon />
             </ListItemIcon>
-            <ListItemText primary="Lists" />
+            <ListItemText primary="Lists" className={styles.menuItem} />
           </ListItem>
         </Link>
       </List>
