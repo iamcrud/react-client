@@ -138,6 +138,7 @@ export function ListView({
                 <Button
                   variant="contained"
                   color="secondary"
+                  className={styles.iconButton}
                   onClick={() => {
                     deleteItem(item.id);
                   }}

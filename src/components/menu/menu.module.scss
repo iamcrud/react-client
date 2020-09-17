@@ -1,25 +1,8 @@
 .menu {
   width: 250px;
   background-color: #ececec;
+}
 
-  .lists ul {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .list {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-
-  .listNameContainer {
-    flex: 1;
-    margin-right: 10px;
-  }
-
-  .listName {
-    padding: 10px;
-  }
+.menuItem {
+  color: rgba(0, 0, 0, 0.87);
 }
