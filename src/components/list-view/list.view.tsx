@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 
-import { NoListFound } from "components/no-list-found/no-list-found";
+import { PageNotFound } from "components/page-not-found/page-not-found";
 import { ListContainer } from "./list.container";
 
 import * as api from "lists/lists.api";
@@ -41,7 +41,7 @@ export function ListView({ methods }: ListViewProps) {
 
   return (
     <>
-      {!list && !loading && <NoListFound />}
+      {!list && !loading && <PageNotFound />}
       {list && (
         <ListContainer
           methods={{ ...methods, setMode }}

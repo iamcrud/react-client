@@ -8,6 +8,7 @@ import { Menu } from "components/menu/menu";
 import { LandingView } from "components/landing-view/landing-view";
 import { ListView } from "components/list-view/list.view";
 import { ListsView } from "components/lists-view/lists-view";
+import { PageNotFound } from "components/page-not-found/page-not-found";
 
 import styles from "./App.module.scss";
 
@@ -24,15 +25,16 @@ function App() {
         <Menu />
 
         <Switch>
-          <Route path="/lists/:id">
+          <Route exact path="/lists/:id">
             <ListView methods={{ createList, updateList, deleteList }} />
           </Route>
-          <Route path="/lists">
+          <Route exact path="/lists">
             <ListsView lists={lists} />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <LandingView />
           </Route>
+          <Route component={PageNotFound} />
         </Switch>
       </div>
     </div>
