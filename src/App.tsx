@@ -5,11 +5,12 @@ import AppBar from "@material-ui/core/AppBar";
 import { useLists } from "lists/lists.hook";
 
 import { Menu } from "components/menu/menu";
-/* import { NoListSelected } from "components/no-list-selected/no-list-selected"; */
-import { ListViewContainer } from "components/list-view/list-view-container";
+import { LandingView } from "components/landing-view/landing-view";
+import { ListView } from "components/list-view/list.view";
+import { ListsView } from "components/lists-view/lists-view";
+import { PageNotFound } from "components/page-not-found/page-not-found";
 
 import styles from "./App.module.scss";
-import { ListsView } from "components/lists-view/lists-view";
 
 function App() {
   const { lists, createList, updateList, deleteList } = useLists();
@@ -24,17 +25,16 @@ function App() {
         <Menu />
 
         <Switch>
-          <Route path="/lists/:id">
-            <ListViewContainer
-              methods={{ createList, updateList, deleteList }}
-            />
+          <Route exact path="/lists/:id">
+            <ListView methods={{ createList, updateList, deleteList }} />
           </Route>
-          {/* <Route path="/">
-            <NoListSelected />
-          </Route> */}
-          <Route path="/lists">
+          <Route exact path="/lists">
             <ListsView lists={lists} />
           </Route>
+          <Route exact path="/">
+            <LandingView />
+          </Route>
+          <Route component={PageNotFound} />
         </Switch>
       </div>
     </div>
