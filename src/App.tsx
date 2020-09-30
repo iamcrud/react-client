@@ -1,9 +1,9 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import AppBar from "@material-ui/core/AppBar";
 
 import { useLists } from "lists/lists.hook";
 
+import { Header } from "components/header/header";
 import { Menu } from "components/menu/menu";
 import { LandingView } from "components/landing-view/landing-view";
 import { ListView } from "components/list-view/list.view";
@@ -17,9 +17,7 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <AppBar position="sticky">
-        <h1>IamCrud - React Client</h1>
-      </AppBar>
+      <Header />
 
       <div className={styles.container}>
         <Menu />

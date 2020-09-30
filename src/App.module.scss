@@ -18,16 +18,6 @@ h2 {
   display: flex;
   flex-direction: column;
 
-  header {
-    background-color: black;
-    color: #61dafb;
-    padding: 10px;
-
-    h1 {
-      font-size: 25px;
-    }
-  }
-
   .container {
     flex: 1;
     display: flex;
