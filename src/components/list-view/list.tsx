@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Button, TextField, Paper } from "@material-ui/core";
-import {
-  Add as AddIcon,
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-} from "@material-ui/icons";
+import { TextField, Paper } from "@material-ui/core";
 
-import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import { ListProps } from "./list.types";
 import styles from "./list.module.scss";
+import { SaveButton } from "components/buttons/save-button/save-button";
+import { AddButton } from "components/buttons/add-button/add-button";
+import { DeleteButton } from "components/buttons/delete-button/delete-button";
+import { EditButton } from "components/buttons/edit-button/edit-button";
 
 export function List({
   data: { list, mode },
@@ -52,39 +50,19 @@ export function List({
                 updateTitle(event.target.value);
               }}
             />
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<PlaylistAddCheckIcon />}
+            <SaveButton
               onClick={() => {
                 save(list);
                 setNewItem("");
               }}
-            >
-              Save
-            </Button>
+            />
           </>
         )}
         {mode === "read" && (
           <>
             <h2 className={styles.title}>{list.title}</h2>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={remove}
-              className={styles.action}
-              startIcon={<DeleteIcon />}
-            >
-              Delete
-            </Button>
-            <Button
-              variant="contained"
-              onClick={edit}
-              className={styles.action}
-              startIcon={<EditIcon />}
-            >
-              Edit
-            </Button>
+            <DeleteButton onClick={remove} />
+            <EditButton className={styles.action} onClick={edit} />
           </>
         )}
       </div>
@@ -107,14 +85,7 @@ export function List({
               createNewItem();
             }}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            onClick={createNewItem}
-          >
-            Add
-          </Button>
+          <AddButton onClick={createNewItem} />
         </div>
       )}
       <ul className={styles.container}>
@@ -135,16 +106,12 @@ export function List({
                     updateItem(item.id, event.target.value);
                   }}
                 />
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className={styles.iconButton}
+                <DeleteButton
+                  showLabel={false}
                   onClick={() => {
                     deleteItem(item.id);
                   }}
-                >
-                  <DeleteIcon />
-                </Button>
+                />
               </div>
             )}
           </li>
