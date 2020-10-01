@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import { Header, HeaderProps } from "../../../components/header/header";
+import { Header, HeaderProps } from "components/header/header";
 
 export default {
   title: "IamCrud/Header",
@@ -12,3 +12,7 @@ const Template: Story<HeaderProps> = (args) => <Header {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {};
+
+Default.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
