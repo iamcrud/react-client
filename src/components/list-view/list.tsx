@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Paper } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 
 import { ListProps } from "./list.types";
 import styles from "./list.module.scss";
@@ -7,6 +7,7 @@ import { SaveButton } from "components/buttons/save-button/save-button";
 import { AddButton } from "components/buttons/add-button/add-button";
 import { DeleteButton } from "components/buttons/delete-button/delete-button";
 import { EditButton } from "components/buttons/edit-button/edit-button";
+import { TextInput } from "components/form-controls/text-input/text-input";
 
 export function List({
   data: { list, mode },
@@ -40,11 +41,9 @@ export function List({
       <div className={styles.header}>
         {mode === "write" && (
           <>
-            <TextField
-              label="Title"
+            <TextInput
               className={styles.title}
-              variant="outlined"
-              size="small"
+              label="Title"
               value={list.title}
               onChange={(event) => {
                 updateTitle(event.target.value);
@@ -68,11 +67,9 @@ export function List({
       </div>
       {mode === "write" && (
         <div className={styles.newItem}>
-          <TextField
+          <TextInput
             className={styles.content}
             label="New item"
-            variant="outlined"
-            size="small"
             value={newItem}
             onChange={(event) => {
               setNewItem(event.target.value);
@@ -96,11 +93,9 @@ export function List({
             )}
             {mode === "write" && (
               <div className={styles.row}>
-                <TextField
+                <TextInput
                   className={styles.listItemContent}
                   label="Item content"
-                  variant="outlined"
-                  size="small"
                   value={item.content}
                   onChange={(event) => {
                     updateItem(item.id, event.target.value);
