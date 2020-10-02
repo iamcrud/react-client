@@ -1,29 +1,25 @@
 import React from "react";
-import { Button } from "@material-ui/core";
-import { Delete as DeleteIcon } from "@material-ui/icons";
+import { Button, ButtonProps } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import styles from "./delete-button.module.scss";
 
 export type DeleteButtonProps = {
-  onClick: () => void;
   showLabel?: boolean;
-  [key: string]: any;
+  className?: string;
+  onClick?: ButtonProps["onClick"];
 };
 
 export const DeleteButton = ({
-  onClick,
   showLabel = true,
   ...props
-}: DeleteButtonProps) => {
-  return (
-    <Button
-      className={`${styles.deleteButton} ${showLabel ? "" : styles.iconButton}`}
-      variant="contained"
-      color="secondary"
-      startIcon={showLabel && <DeleteIcon />}
-      onClick={onClick}
-      {...props}
-    >
-      {showLabel ? "Delete" : <DeleteIcon />}
-    </Button>
-  );
-};
+}: DeleteButtonProps) => (
+  <Button
+    className={`${styles.deleteButton} ${showLabel ? "" : styles.iconButton}`}
+    variant="contained"
+    color="secondary"
+    startIcon={showLabel && <DeleteIcon />}
+    {...props}
+  >
+    {showLabel ? "Delete" : <DeleteIcon />}
+  </Button>
+);

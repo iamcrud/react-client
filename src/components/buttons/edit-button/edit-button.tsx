@@ -1,21 +1,14 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import { Button, ButtonProps } from "@material-ui/core";
 import { Edit as EditIcon } from "@material-ui/icons";
 
 export type EditButtonProps = {
-  onClick: () => void;
-  [key: string]: any;
+  className?: string;
+  onClick?: ButtonProps["onClick"];
 };
 
-export const EditButton = ({ onClick, ...props }: EditButtonProps) => {
-  return (
-    <Button
-      variant="contained"
-      onClick={onClick}
-      startIcon={<EditIcon />}
-      {...props}
-    >
-      Edit
-    </Button>
-  );
-};
+export const EditButton = (props: EditButtonProps) => (
+  <Button variant="contained" startIcon={<EditIcon />} {...props}>
+    Edit
+  </Button>
+);

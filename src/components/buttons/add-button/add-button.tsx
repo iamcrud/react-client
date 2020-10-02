@@ -1,22 +1,19 @@
 import React from "react";
-import { Button } from "@material-ui/core";
-import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
+import { Button, ButtonProps } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 
 export type AddButtonProps = {
-  onClick: () => void;
-  [key: string]: any;
+  className?: string;
+  onClick?: ButtonProps["onClick"];
 };
 
-export const AddButton = ({ onClick, ...props }: AddButtonProps) => {
-  return (
-    <Button
-      variant="contained"
-      color="primary"
-      startIcon={<PlaylistAddCheckIcon />}
-      onClick={onClick}
-      {...props}
-    >
-      Add
-    </Button>
-  );
-};
+export const AddButton = (props: AddButtonProps) => (
+  <Button
+    variant="contained"
+    color="primary"
+    startIcon={<AddIcon />}
+    {...props}
+  >
+    Add
+  </Button>
+);

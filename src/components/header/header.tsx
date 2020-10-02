@@ -4,7 +4,6 @@ import styles from "./header.module.scss";
 
 export type HeaderProps = {
   className?: string;
-  [key: string]: any;
 };
 
 export const Header = ({ className = "", ...props }: HeaderProps) => (
