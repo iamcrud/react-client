@@ -16,7 +16,9 @@ const Template: Story<NewListButtonLinkProps> = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  to: "/foo",
+};
 
 Default.parameters = {
   controls: { hideNoControlsWarning: true },
