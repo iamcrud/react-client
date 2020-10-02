@@ -45,7 +45,13 @@
     "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "arrow-body-style": [
+        "error",
+        "as-needed"
+      ]
+    }
   },
   "browserslist": {
     "production": [
