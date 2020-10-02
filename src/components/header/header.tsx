@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import styles from "./header.module.scss";
 
 export type HeaderProps = {
-  className?: string;
+  className?: React.HTMLAttributes<HTMLDivElement>["className"];
 };
 
 export const Header = ({ className = "", ...props }: HeaderProps) => (

@@ -5,7 +5,7 @@ import styles from "./delete-button.module.scss";
 
 export type DeleteButtonProps = {
   showLabel?: boolean;
-  className?: string;
+  className?: ButtonProps["className"];
   onClick?: ButtonProps["onClick"];
 };
 

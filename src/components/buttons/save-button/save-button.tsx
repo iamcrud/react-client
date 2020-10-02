@@ -3,7 +3,7 @@ import { Button, ButtonProps } from "@material-ui/core";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 
 export type SaveButtonProps = {
-  className?: string;
+  className?: ButtonProps["className"];
   onClick?: ButtonProps["onClick"];
 };
 

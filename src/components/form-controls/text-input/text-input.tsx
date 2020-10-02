@@ -4,7 +4,7 @@ import { TextField, TextFieldProps } from "@material-ui/core";
 export type TextInputProps = {
   label?: string;
   value?: string;
-  className?: string;
+  className?: TextFieldProps["className"];
   onChange?: TextFieldProps["onChange"];
   onKeyDown?: TextFieldProps["onKeyDown"];
 };

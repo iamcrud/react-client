@@ -3,7 +3,7 @@ import { Button, ButtonProps } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 export type AddButtonProps = {
-  className?: string;
+  className?: ButtonProps["className"];
   onClick?: ButtonProps["onClick"];
 };
 

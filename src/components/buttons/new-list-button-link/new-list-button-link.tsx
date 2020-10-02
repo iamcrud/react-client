@@ -4,8 +4,8 @@ import { Link, LinkProps } from "react-router-dom";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 
 export type NewListButtonLinkProps = {
-  to: string;
-  className?: string;
+  to: LinkProps["to"];
+  className?: LinkProps["className"];
   onClick?: LinkProps["onClick"];
 };
 
