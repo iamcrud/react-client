@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, ButtonProps } from "@material-ui/core";
-import { Edit as EditIcon } from "@material-ui/icons";
+import EditIcon from "@material-ui/icons/Edit";
 
 export type EditButtonProps = {
   className?: string;
