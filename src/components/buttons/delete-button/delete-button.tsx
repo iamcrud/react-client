@@ -11,10 +11,13 @@ export type DeleteButtonProps = {
 
 export const DeleteButton = ({
   showLabel = true,
+  className = "",
   ...props
 }: DeleteButtonProps) => (
   <Button
-    className={`${styles.deleteButton} ${showLabel ? "" : styles.iconButton}`}
+    className={`${className} ${styles.deleteButton} ${
+      showLabel ? "" : styles.iconButton
+    }`}
     variant="contained"
     color="secondary"
     startIcon={showLabel && <DeleteIcon />}
