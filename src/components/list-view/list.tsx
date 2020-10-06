@@ -7,7 +7,7 @@ import { SaveButton } from "components/buttons/save-button/save-button";
 import { AddButton } from "components/buttons/add-button/add-button";
 import { DeleteButton } from "components/buttons/delete-button/delete-button";
 import { EditButton } from "components/buttons/edit-button/edit-button";
-import { TextInput } from "components/form-controls/text-input/text-input";
+import { TextInput } from "core/components/text-input/text-input";
 
 export function List({
   data: { list, mode },

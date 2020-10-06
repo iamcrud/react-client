@@ -1,13 +1,9 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-
-import {
-  TextInput,
-  TextInputProps,
-} from "components/form-controls/text-input/text-input";
+import { TextInput, TextInputProps } from "./text-input";
 
 export default {
-  title: "IamCrud/FormControls/TextInput",
+  title: "core/text-input",
   component: TextInput,
 } as Meta;
 
